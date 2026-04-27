@@ -1866,7 +1866,7 @@ ${promoCode ? `Promo Code Used: ${promoCode}` : ''}
               className="fixed top-4 right-4 z-30 flex items-center gap-3 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-lg shadow-lg border border-slate-200"
             >
               <span className="text-[10px] font-medium text-slate-600">Powered by</span>
-              <img src="/images/C LOGO.png" alt="Powered by" className="h-10 sm:h-12 w-auto" />
+              <img src={`${import.meta.env.BASE_URL}images/C LOGO.png`} alt="Powered by" className="h-10 sm:h-12 w-auto" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -1957,7 +1957,7 @@ ${promoCode ? `Promo Code Used: ${promoCode}` : ''}
           <div className="mb-12 sm:mb-16 text-center relative z-10">
             <div className="flex flex-col items-center justify-center gap-1 mb-6">
               <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
-                <img src="/images/left-photo.jpg" alt="Mr. WashWala Logo" className="w-full h-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}images/left-photo.jpg`} alt="Mr. WashWala Logo" className="w-full h-full object-contain" />
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold">
                 Mr.<span className="text-cyan-400">WashWala</span>
