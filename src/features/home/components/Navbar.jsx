@@ -7,7 +7,7 @@ export default function Navbar({ menuOpen, setMenuOpen, onNavigateToWashwala }) 
   return (
     <nav className="sticky top-0 z-50 bg-[#05020d]/70 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-3">
           <img
             src={`${import.meta.env.BASE_URL}images/C2FLogo.avif`}
             alt="Connect2Future"
@@ -19,13 +19,13 @@ export default function Navbar({ menuOpen, setMenuOpen, onNavigateToWashwala }) 
           <span className="hidden sm:block text-lg font-bold tracking-tight text-white">
             Connect<span className="text-fuchsia-400">2</span>future
           </span>
-        </div>
+        </a>
 
         <div className="hidden md:flex items-center gap-7 text-sm text-slate-300">
           {navLinks.slice(0, 5).map((link) => (
             <a
               key={link}
-              href={`#${link.toLowerCase().replace(/\s/g, '-')}`}
+              href={link === 'Home' ? '/' : `#${link.toLowerCase().replace(/\s/g, '-')}`}
               className="hover:text-white transition-colors"
             >
               {link}
@@ -57,7 +57,7 @@ export default function Navbar({ menuOpen, setMenuOpen, onNavigateToWashwala }) 
             {navLinks.map((link) => (
               <a
                 key={link}
-                href={`#${link.toLowerCase().replace(/\s/g, '-')}`}
+                href={link === 'Home' ? '/' : `#${link.toLowerCase().replace(/\s/g, '-')}`}
                 className="text-slate-300 hover:text-white py-2 text-sm border-b border-white/5"
                 onClick={() => setMenuOpen(false)}
               >
