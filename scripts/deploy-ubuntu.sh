@@ -7,6 +7,14 @@ APP_ROOT="/var/www/${APP_NAME}"
 BUILD_DIR="dist"
 NGINX_SITE="/etc/nginx/sites-available/${APP_NAME}"
 NGINX_LINK="/etc/nginx/sites-enabled/${APP_NAME}"
+MANAGE_NGINX="${MANAGE_NGINX:-true}"
+
+is_true() {
+  case "${1,,}" in
+    1|true|yes|y) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
 require_command() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -29,10 +37,12 @@ fi
 require_command npm
 require_command rsync
 
-if ! command -v nginx >/dev/null 2>&1; then
-  echo "Installing nginx..."
-  ${SUDO} apt update -y
-  ${SUDO} apt install -y nginx
+if is_true "${MANAGE_NGINX}"; then
+  if ! command -v nginx >/dev/null 2>&1; then
+    echo "Installing nginx..."
+    ${SUDO} apt update -y
+    ${SUDO} apt install -y nginx
+  fi
 fi
 
 echo "Installing project dependencies..."
@@ -50,8 +60,9 @@ echo "Deploying files to ${APP_ROOT}..."
 ${SUDO} mkdir -p "${APP_ROOT}"
 ${SUDO} rsync -a --delete "${BUILD_DIR}/" "${APP_ROOT}/"
 
-echo "Writing nginx site config..."
-${SUDO} tee "${NGINX_SITE}" >/dev/null <<EOF
+if is_true "${MANAGE_NGINX}"; then
+  echo "Writing nginx site config..."
+  ${SUDO} tee "${NGINX_SITE}" >/dev/null <<EOF
 server {
   listen 80;
   listen [::]:80;
@@ -72,16 +83,19 @@ server {
 }
 EOF
 
-${SUDO} ln -sfn "${NGINX_SITE}" "${NGINX_LINK}"
-if [ -f "/etc/nginx/sites-enabled/default" ]; then
-  ${SUDO} rm -f "/etc/nginx/sites-enabled/default"
+  ${SUDO} ln -sfn "${NGINX_SITE}" "${NGINX_LINK}"
+  if [ -f "/etc/nginx/sites-enabled/default" ]; then
+    ${SUDO} rm -f "/etc/nginx/sites-enabled/default"
+  fi
+
+  echo "Validating nginx config..."
+  ${SUDO} nginx -t
+
+  echo "Reloading nginx..."
+  ${SUDO} systemctl reload nginx
+else
+  echo "Skipping nginx config update (MANAGE_NGINX=${MANAGE_NGINX})."
 fi
-
-echo "Validating nginx config..."
-${SUDO} nginx -t
-
-echo "Reloading nginx..."
-${SUDO} systemctl reload nginx
 
 echo "Deployment completed."
 echo "Site root: ${APP_ROOT}"
