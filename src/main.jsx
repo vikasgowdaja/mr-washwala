@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import App from './App.jsx'
 import Home from './pages/Home.jsx'
+import TransitionTest from './pages/TransitionTest.jsx'
 import './index.css'
 
 function RouteMetaManager() {
@@ -39,6 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/washwala/*" element={<App />} />
+        <Route path="/test-transition" element={<TransitionTest />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

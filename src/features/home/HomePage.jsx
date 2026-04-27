@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import WaterCartonTransition from '../../shared/components/WaterCartonTransition';
 import HeroSection from './components/HeroSection';
 import StatsSection from './components/StatsSection';
 import AboutSection from './components/AboutSection';
@@ -13,8 +14,10 @@ import Footer from './components/Footer';
 export default function HomePage() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
 
-  const navigateToWashwala = () => navigate('/washwala/');
+  const navigateToWashwala = () => setShowTransition(true);
+  const handleTransitionComplete = useCallback(() => navigate('/washwala/'), [navigate]);
 
   return (
     <div className="min-h-screen bg-[#05020d] text-white font-sans">
@@ -27,6 +30,7 @@ export default function HomePage() {
       <ReviewsSection />
       <ContactSection />
       <Footer onNavigateToWashwala={navigateToWashwala} />
+      <WaterCartonTransition isActive={showTransition} onComplete={handleTransitionComplete} />
     </div>
   );
 }
