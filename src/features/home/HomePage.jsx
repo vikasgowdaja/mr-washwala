@@ -17,7 +17,7 @@ export default function HomePage() {
   const navigateToWashwala = () => navigate('/washwala');
 
   return (
-    <div className="min-h-screen bg-[#07050f] text-white font-sans">
+    <div className="min-h-screen bg-[#05020d] text-white font-sans">
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} onNavigateToWashwala={navigateToWashwala} />
       <HeroSection onNavigateToWashwala={navigateToWashwala} />
       <StatsSection />

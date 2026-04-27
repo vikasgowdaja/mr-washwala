@@ -10,9 +10,9 @@ export default function Footer({ onNavigateToWashwala }) {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img
-                src={`${import.meta.env.BASE_URL}images/connect2future-logo.png`}
+                src={`${import.meta.env.BASE_URL}images/C2FLogo.avif`}
                 alt="logo"
-                className="h-8 w-auto"
+                className="h-9 w-9 rounded-sm object-cover"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}

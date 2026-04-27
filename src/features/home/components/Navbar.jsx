@@ -5,18 +5,18 @@ import { navLinks } from '../constants/homeData';
 
 export default function Navbar({ menuOpen, setMenuOpen, onNavigateToWashwala }) {
   return (
-    <nav className="sticky top-0 z-50 bg-[#07050f]/80 backdrop-blur-md border-b border-white/5">
+    <nav className="sticky top-0 z-50 bg-[#05020d]/70 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
-            src={`${import.meta.env.BASE_URL}images/connect2future-logo.png`}
+            src={`${import.meta.env.BASE_URL}images/C2FLogo.avif`}
             alt="Connect2Future"
-            className="h-9 w-auto"
+            className="h-12 w-12 rounded-sm object-cover"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
             }}
           />
-          <span className="text-lg font-bold tracking-tight text-white">
+          <span className="hidden sm:block text-lg font-bold tracking-tight text-white">
             Connect<span className="text-fuchsia-400">2</span>future
           </span>
         </div>
@@ -52,7 +52,7 @@ export default function Navbar({ menuOpen, setMenuOpen, onNavigateToWashwala }) 
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden border-t border-white/5 bg-[#07050f] px-6 pb-4 flex flex-col gap-3"
+            className="md:hidden border-t border-white/10 bg-[#05020d]/95 px-6 pb-4 flex flex-col gap-3"
           >
             {navLinks.map((link) => (
               <a
