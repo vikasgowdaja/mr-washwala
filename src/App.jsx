@@ -22,7 +22,9 @@ import {
   Star,
   Crown,
   Mail,
-  ChevronDown
+  ChevronDown,
+  ChevronRight,
+  Check
 } from 'lucide-react';
 
 import Slideshow from './features/washwala/components/Slideshow';
