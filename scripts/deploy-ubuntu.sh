@@ -3,7 +3,9 @@ set -Eeuo pipefail
 
 APP_NAME="${APP_NAME:-mr-washwala}"
 DOMAIN="${DOMAIN:-_}"
-APP_ROOT="/var/www/${APP_NAME}"
+APP_ROOT="${APP_ROOT:-/var/www/${APP_NAME}}"
+DEPLOY_PATH="${DEPLOY_PATH:-${APP_ROOT}}"
+BASE_PATH="${BASE_PATH:-/}"
 BUILD_DIR="dist"
 NGINX_SITE="/etc/nginx/sites-available/${APP_NAME}"
 NGINX_LINK="/etc/nginx/sites-enabled/${APP_NAME}"
@@ -49,16 +51,16 @@ echo "Installing project dependencies..."
 npm ci
 
 echo "Building production assets..."
-npm run build:prod
+npm run build:prod -- --base="${BASE_PATH}"
 
 if [ ! -d "${BUILD_DIR}" ]; then
   echo "Error: build output '${BUILD_DIR}' was not created."
   exit 1
 fi
 
-echo "Deploying files to ${APP_ROOT}..."
-${SUDO} mkdir -p "${APP_ROOT}"
-${SUDO} rsync -a --delete "${BUILD_DIR}/" "${APP_ROOT}/"
+echo "Deploying files to ${DEPLOY_PATH}..."
+${SUDO} mkdir -p "${DEPLOY_PATH}"
+${SUDO} rsync -a --delete "${BUILD_DIR}/" "${DEPLOY_PATH}/"
 
 if is_true "${MANAGE_NGINX}"; then
   echo "Writing nginx site config..."
@@ -68,7 +70,7 @@ server {
   listen [::]:80;
   server_name ${DOMAIN};
 
-  root ${APP_ROOT};
+  root ${DEPLOY_PATH};
   index index.html;
 
   location / {
@@ -98,5 +100,6 @@ else
 fi
 
 echo "Deployment completed."
-echo "Site root: ${APP_ROOT}"
+echo "Site root: ${DEPLOY_PATH}"
 echo "Domain: ${DOMAIN}"
+echo "Base path: ${BASE_PATH}"

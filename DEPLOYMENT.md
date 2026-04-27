@@ -35,9 +35,18 @@ cd mr-washwala
 
 ## 3) Run production deployment script
 
+For root-domain deployment (example: `https://yourdomain.com/`):
+
 ```bash
 chmod +x scripts/deploy-ubuntu.sh
 DOMAIN=yourdomain.com APP_NAME=mr-washwala ./scripts/deploy-ubuntu.sh
+```
+
+For path-based deployment (example: `https://www.connect2future.com/washwala/`):
+
+```bash
+chmod +x scripts/deploy-ubuntu.sh
+DOMAIN=www.connect2future.com APP_NAME=mr-washwala DEPLOY_PATH=/var/www/connect2future/washwala BASE_PATH=/washwala/ MANAGE_NGINX=false ./scripts/deploy-ubuntu.sh
 ```
 
 If domain DNS is not ready yet, use:
@@ -66,9 +75,18 @@ sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 
 From project directory:
 
+For root-domain deployments:
+
 ```bash
 git pull
 ./scripts/deploy-ubuntu.sh
+```
+
+For `https://www.connect2future.com/washwala/` deployments:
+
+```bash
+git pull
+DOMAIN=www.connect2future.com APP_NAME=mr-washwala DEPLOY_PATH=/var/www/connect2future/washwala BASE_PATH=/washwala/ MANAGE_NGINX=false ./scripts/deploy-ubuntu.sh
 ```
 
 ## 7) Health checks
