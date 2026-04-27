@@ -14,7 +14,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navigateToWashwala = () => navigate('/washwala');
+  const navigateToWashwala = () => navigate('/washwala/');
 
   return (
     <div className="min-h-screen bg-[#05020d] text-white font-sans">
