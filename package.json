@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "description": "Premium Laundry Services Platform",
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:prod": "vite build --mode production",
+    "preview": "vite preview",
+    "start": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
+    "check": "npm run build:prod",
+    "deploy:dry-run": "npm ci && npm run build:prod",
+    "security:audit": "npm audit --omit=dev",
+    "security:fix": "npm audit fix"
   },
   "keywords": [],
   "author": "",

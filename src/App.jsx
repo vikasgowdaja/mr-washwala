@@ -4,6 +4,11 @@ import {
   Droplets,
   Sparkles,
   Wind,
+  Check,
+  Gift,
+  Calendar,
+  FileText,
+  Info,
   ShoppingBag,
   Phone,
   Instagram,
@@ -38,7 +43,6 @@ function Slideshow({ onBookNow }) {
       icon: Wind,
       gradient: "from-blue-500 to-cyan-500",
       bgGradient: "from-blue-50 to-cyan-50",
-      image: "🚀",
       details: {
         longDescription: "Our Express Laundry service is designed for the fast-paced lifestyle of modern professionals. We understand that time is precious, which is why we guarantee a quick turnaround without compromising on quality.",
         features: [
@@ -65,7 +69,6 @@ function Slideshow({ onBookNow }) {
       icon: Droplets,
       gradient: "from-green-500 to-emerald-500",
       bgGradient: "from-green-50 to-emerald-50",
-      image: "🌱",
       details: {
         longDescription: "We are committed to environmental sustainability while delivering the highest quality cleaning service. Our eco-friendly approach uses biodegradable detergents that are safe for your family and the planet.",
         features: [
@@ -92,7 +95,6 @@ function Slideshow({ onBookNow }) {
       icon: Sparkles,
       gradient: "from-purple-500 to-pink-500",
       bgGradient: "from-purple-50 to-pink-50",
-      image: "✨",
       details: {
         longDescription: "For your most precious garments, our Premium Dry Cleaning service offers luxury care with advanced techniques. Every piece receives individual attention and expert handling by our certified professionals.",
         features: [
@@ -135,6 +137,8 @@ function Slideshow({ onBookNow }) {
     setDirection(newDirection);
     setCurrentSlide((prev) => (prev + newDirection + slides.length) % slides.length);
   };
+
+  const SlideIcon = slides[currentSlide].icon;
 
   return (
     <div className="relative w-full h-[280px] sm:h-[320px] md:h-[380px] mb-8 overflow-hidden rounded-2xl shadow-xl bg-gradient-to-br from-slate-900 to-slate-800">
@@ -183,9 +187,11 @@ function Slideshow({ onBookNow }) {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className={`text-5xl sm:text-6xl md:text-7xl mb-3`}
+                  className="mb-4"
                 >
-                  {slides[currentSlide].image}
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/70 shadow-lg flex items-center justify-center">
+                    <SlideIcon className="w-7 h-7 sm:w-8 sm:h-8 text-slate-800" />
+                  </div>
                 </motion.div>
 
                 <motion.h2
@@ -244,9 +250,9 @@ function Slideshow({ onBookNow }) {
                     rotate: { duration: 20, repeat: Infinity, ease: "linear" },
                     y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
                   }}
-                  className={`text-8xl opacity-20`}
+                  className="opacity-20"
                 >
-                  {slides[currentSlide].image}
+                  <SlideIcon className="w-24 h-24 text-slate-700" />
                 </motion.div>
               </motion.div>
             </div>
@@ -323,7 +329,11 @@ function Slideshow({ onBookNow }) {
                 <div className={`sticky top-0 bg-gradient-to-r ${slides[currentSlide].gradient} p-6 sm:p-8 text-white`}>
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <div className="text-3xl sm:text-4xl mb-2">{slides[currentSlide].image}</div>
+                      <div className="mb-3">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center">
+                          <SlideIcon className="w-6 h-6 sm:w-7 sm:h-7" />
+                        </div>
+                      </div>
                       <h2 className="text-2xl sm:text-4xl font-bold break-words">{slides[currentSlide].title}</h2>
                       <p className="text-white/90 mt-2 text-sm sm:text-base">{slides[currentSlide].subtitle}</p>
                     </div>
@@ -358,7 +368,10 @@ function Slideshow({ onBookNow }) {
                     transition={{ delay: 0.2 }}
                   >
                     <h3 className={`text-xl sm:text-2xl font-bold mb-4 bg-gradient-to-r ${slides[currentSlide].gradient} bg-clip-text text-transparent`}>
-                      ✨ Key Features
+                      <span className="inline-flex items-center gap-2">
+                        <Sparkles size={22} />
+                        Key Features
+                      </span>
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       {slides[currentSlide].details.features.map((feature, idx) => (
@@ -370,7 +383,7 @@ function Slideshow({ onBookNow }) {
                           className={`bg-gradient-to-r ${slides[currentSlide].gradient} bg-opacity-10 p-3 sm:p-4 rounded-xl border border-opacity-30`}
                         >
                           <div className="flex items-start gap-2 sm:gap-3">
-                            <div className={`text-lg sm:text-2xl flex-shrink-0`}>✓</div>
+                            <Check size={18} className="text-slate-700 mt-0.5 flex-shrink-0" />
                             <p className="text-sm sm:text-base text-slate-700 font-medium">{feature}</p>
                           </div>
                         </motion.div>
@@ -385,7 +398,10 @@ function Slideshow({ onBookNow }) {
                     transition={{ delay: 0.3 }}
                   >
                     <h3 className={`text-xl sm:text-2xl font-bold mb-4 bg-gradient-to-r ${slides[currentSlide].gradient} bg-clip-text text-transparent`}>
-                      🎯 Benefits
+                      <span className="inline-flex items-center gap-2">
+                        <TrendingUp size={22} />
+                        Benefits
+                      </span>
                     </h3>
                     <ul className="space-y-2 sm:space-y-3">
                       {slides[currentSlide].details.benefits.map((benefit, idx) => (
@@ -910,24 +926,24 @@ function App() {
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
     const orderMessage = `
-📦 NEW ORDER FROM MR.WASHWALA
+  NEW ORDER FROM MR.WASHWALA
 
 Order ID: ${orderId}
 Order Time: ${timestamp}
 
-👤 Customer Details:
+  Customer Details:
 Name: ${customerForm.name}
 Phone: ${customerForm.phone}
 Email: ${customerForm.email}
 Address: ${customerForm.address}
 ${customerForm.city ? `City: ${customerForm.city}` : ''}
 
-📅 Schedule:
+  Schedule:
 Pickup Date: ${pickupDate}
 Pickup Time: ${pickupTime}
 ${deliveryDate ? `Delivery Date: ${deliveryDate}` : ''}
 
-🛍️ Order Details:
+  Order Details:
 ${orderItems.join('\n')}
 
 Total Items: ${totalCartItems}
@@ -936,7 +952,7 @@ ${discount > 0 ? `Discount: -₹${discount}` : ''}
 ${deliveryCharge > 0 ? `Delivery Charge: ₹${deliveryCharge}` : ''}
 ${subtotal > 0 ? `Total Amount: ₹${finalTotal}` : 'Price: To be quoted'}
 
-${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
+${promoCode ? `Promo Code Used: ${promoCode}` : ''}
     `;
 
     try {
@@ -1950,7 +1966,7 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
             <div className="inline-block mb-8">
               <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 text-blue-700 px-5 py-2.5 rounded-full text-sm font-medium professional-shadow">
                 <span className="flex items-center gap-2">
-                  <span className="text-lg">✨</span>
+                  <Award size={18} />
                   India's Most Trusted Laundry Service
                 </span>
               </div>
@@ -3908,10 +3924,16 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
                           maxLength={6}
                         />
                         {pincodeValid === true && (
-                          <p className="text-green-400 text-xs mt-1">✓ We deliver to this area!</p>
+                          <p className="text-green-400 text-xs mt-1 inline-flex items-center gap-1">
+                            <Check size={12} />
+                            We deliver to this area!
+                          </p>
                         )}
                         {pincodeValid === false && (
-                          <p className="text-red-400 text-xs mt-1">✗ Service not available in this area</p>
+                          <p className="text-red-400 text-xs mt-1 inline-flex items-center gap-1">
+                            <X size={12} />
+                            Service not available in this area
+                          </p>
                         )}
                       </div>
                     </div>
@@ -3919,7 +3941,8 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
                     {/* Pickup Date and Time */}
                     <div>
                       <h3 className="text-white font-semibold mb-3 flex items-center gap-2 text-sm sm:text-base">
-                        📅 Schedule Pickup
+                        <Calendar size={16} />
+                        Schedule Pickup
                       </h3>
                       <div className="grid grid-cols-2 gap-3 sm:gap-4">
                         <div>
@@ -3957,7 +3980,10 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
                     {/* Promo Code */}
                     <div>
                       <label className="block text-slate-300 text-xs sm:text-sm font-medium mb-1.5 sm:mb-2">
-                        🎁 Promo Code
+                        <span className="inline-flex items-center gap-2">
+                          <Gift size={15} />
+                          Promo Code
+                        </span>
                       </label>
                       <div className="flex gap-2">
                         <input
@@ -3984,7 +4010,10 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
                     {/* Price Summary */}
                     {subtotal > 0 && (
                       <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 p-4 rounded-xl space-y-2">
-                        <h3 className="text-green-400 font-semibold mb-2">💰 Price Summary</h3>
+                        <h3 className="text-green-400 font-semibold mb-2 inline-flex items-center gap-2">
+                          <DollarSign size={17} />
+                          Price Summary
+                        </h3>
                         <div className="space-y-1 text-sm">
                           <div className="flex justify-between text-slate-300">
                             <span>Subtotal</span>
@@ -4091,7 +4120,10 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
 
                     {/* Schedule */}
                     <div>
-                      <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">📅 Pickup & Delivery Schedule</h3>
+                      <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <Calendar size={20} className="text-blue-600" />
+                        Pickup & Delivery Schedule
+                      </h3>
                       <div className="bg-slate-50 p-4 rounded-xl space-y-2 text-sm">
                         <div className="flex justify-between"><span className="text-slate-600">Pickup Date:</span><span className="font-semibold text-slate-800">{confirmedOrder.schedule.pickupDate}</span></div>
                         <div className="flex justify-between"><span className="text-slate-600">Pickup Time:</span><span className="font-semibold text-slate-800">{confirmedOrder.schedule.pickupTime}</span></div>
@@ -4120,7 +4152,10 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
                     {/* Price Summary */}
                     {confirmedOrder.pricing.subtotal > 0 && (
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">💰 Payment Summary</h3>
+                        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                          <DollarSign size={20} className="text-blue-600" />
+                          Payment Summary
+                        </h3>
                         <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border-2 border-green-200 space-y-2 text-sm">
                           <div className="flex justify-between"><span className="text-slate-600">Subtotal:</span><span className="font-semibold text-slate-800">₹{confirmedOrder.pricing.subtotal}</span></div>
                           {confirmedOrder.pricing.discount > 0 && (
@@ -4140,14 +4175,20 @@ ${promoCode ? `🎁 Promo Code Used: ${promoCode}` : ''}
                     {/* Special Instructions */}
                     {confirmedOrder.specialInstructions && (
                       <div>
-                        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">📝 Special Instructions</h3>
+                        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                          <FileText size={20} className="text-blue-600" />
+                          Special Instructions
+                        </h3>
                         <div className="bg-slate-50 p-4 rounded-xl"><p className="text-slate-700 text-sm">{confirmedOrder.specialInstructions}</p></div>
                       </div>
                     )}
 
                     {/* Next Steps */}
                     <div className="bg-blue-50 border-2 border-blue-200 p-4 rounded-xl">
-                      <h3 className="font-bold text-blue-800 mb-2 flex items-center gap-2">ℹ️ What's Next?</h3>
+                      <h3 className="font-bold text-blue-800 mb-2 flex items-center gap-2">
+                        <Info size={18} />
+                        What's Next?
+                      </h3>
                       <ul className="text-sm text-blue-700 space-y-1 ml-4">
                         <li>• You'll receive a confirmation via email/SMS</li>
                         <li>• Our team will arrive at the scheduled pickup time</li>
